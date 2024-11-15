@@ -20,4 +20,5 @@
     <logger name="org.springframework.boot.test.autoconfigure" level="warn"/>
     <logger name="org.springframework.boot.test.context" level="warn"/>
     <logger name="org.springframework.test.context" level="warn"/>
+    <logger name="org.ocpsoft.rewrite" level="warn"/>
 </configuration>
