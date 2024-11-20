@@ -11,6 +11,7 @@
     <logger name="com.gargoylesoftware.htmlunit.javascript" level="off"/>
     <logger name="com.redhat" level="trace"/>
     <logger name="org.hibernate" level="warn"/>
+    <logger name="org.primefaces" level="trace"/>
     <logger name="org.springframework" level="info"/>
     <logger name="org.springframework.beans" level="info"/>
     <logger name="org.springframework.context" level="info"/>
@@ -20,5 +21,7 @@
     <logger name="org.springframework.boot.test.autoconfigure" level="warn"/>
     <logger name="org.springframework.boot.test.context" level="warn"/>
     <logger name="org.springframework.test.context" level="warn"/>
+    <logger name="org.springframework.web" level="debug"/>
+    <logger name="org.springframework.web.servlet" level="trace"/>
     <logger name="org.ocpsoft.rewrite" level="warn"/>
 </configuration>
