@@ -23,7 +23,7 @@ public class WidgetView {
     private static final Logger LOG = LoggerFactory.getLogger(WidgetView.class);
 
     @Autowired
-    private WidgetService widgetService;
+    private transient WidgetService widgetService;
 
     private List<Widget> widgets;
 

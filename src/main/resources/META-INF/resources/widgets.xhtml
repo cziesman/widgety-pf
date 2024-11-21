@@ -56,16 +56,16 @@
 
                     <p:column selectionMode="multiple" exportable="false"/>
 
-                    <p:column headerText="ID" sortBy="#{widget.id}" filterBy="#{widget.id}">
+                    <p:column headerText="ID" sortBy="#{widget.id}" filterBy="#{widget.id}" width="15%">
                         <h:outputText value="#{widget.id}"/>
                     </p:column>
-                    <p:column headerText="Name" sortBy="#{widget.name}" filterBy="#{widget.name}">
+                    <p:column headerText="Name" sortBy="#{widget.name}" filterBy="#{widget.name}" width="25%">
                         <h:outputText value="#{widget.name}"/>
                     </p:column>
-                    <p:column headerText="Description" sortBy="#{widget.description}" filterBy="#{widget.description}">
+                    <p:column headerText="Description" sortBy="#{widget.description}" filterBy="#{widget.description}" width="40%">
                         <h:outputText value="#{widget.description}"/>
                     </p:column>
-                    <p:column exportable="false" ariaHeaderText="Actions">
+                    <p:column exportable="false" ariaHeaderText="Actions" width="20%">
                         <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-widget-content"
                                          oncomplete="PF('manageWidgetDialog').show()"
                                          styleClass="edit-button rounded-button ui-button-success" process="@this">

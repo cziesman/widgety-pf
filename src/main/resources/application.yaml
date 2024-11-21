@@ -35,9 +35,10 @@ springdoc:
 #    console: "%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger.%M:%line - %msg%n"
 
 joinfaces:
-#  primefaces:
-#    theme: saga
+  primefaces:
+    theme: saga
 #    theme: vela
 #    theme: arya
   jsf:
+#    facelets-libraries: /WEB-INF/primefaces-saga.taglib.xml
     webapp-resources-directory: /resources
