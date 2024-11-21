@@ -1,5 +1,6 @@
 package com.redhat.widget.ui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @ViewScoped
 @Component
-public class WidgetView {
+public class WidgetView implements Serializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(WidgetView.class);
 

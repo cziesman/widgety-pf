@@ -32,7 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/login**", "/logout**", "/favicon.ico").permitAll()
+                        .requestMatchers("/login**", "/logout**", "/static/favicon.ico").permitAll()
                         .requestMatchers("/*").hasRole(USER)
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
