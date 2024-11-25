@@ -1,0 +1,18 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: widget-pf
+  namespace: widgety-pf-dev
+spec:
+  host: widget-pf-widgety-pf-dev.apps.cluster-2v7hs.2v7hs.sandbox516.opentlc.com
+  path: /
+  to:
+    kind: Service
+    name: widgety-pf
+    weight: 100
+  port:
+    targetPort: widgety-pf-web
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
