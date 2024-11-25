@@ -4,17 +4,15 @@ metadata:
   name: widgety-pf-dev
   namespace: argocd
 spec:
+  destination:
+    namespace: argocd
+    server: 'https://kubernetes.default.svc'
   project: default
   source:
-    repoURL: https://github.com/cziesman/widgety-pf.git
-    targetRevision: HEAD
     path: devops/dev/argocd
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
+    repoURL: 'https://github.com/cziesman/widgety-pf.git'
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-  syncOptions:
-    - ApplyOutOfSyncOnly=true
