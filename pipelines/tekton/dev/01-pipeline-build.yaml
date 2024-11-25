@@ -60,6 +60,7 @@ spec:
           workspace: workspace
       runAfter:
         - maven-extract-project-version
-        - maven-verify  workspaces:
+        - maven-verify
+  workspaces:
     - name: workspace
     - name: maven-settings
