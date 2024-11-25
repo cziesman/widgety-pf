@@ -52,7 +52,7 @@ spec:
         kind: ClusterTask
       params:
         - name: DOCKERFILE
-          value: 'src/main/docker/Dockerfile.jvm'
+          value: 'Dockerfile'
         - name: IMAGE
           value: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
       workspaces:
