@@ -3,33 +3,22 @@ kind: Task
 metadata:
   name: deploy-image
 spec:
-  inputs:
-    resources:
-      - name: image
-        type: Image
+  params:
+    - name: image-url
+      description: The image URL from quay.io
+      type: string
+    - name: deployment-name
+      description: The name of the OpenShift Deployment or DeploymentConfig
+      type: string
+    - name: namespace
+      description: The OpenShift namespace where the application should be deployed
+      type: string
   steps:
-    - name: deploy
-      image: "openshift/origin-cli:latest"
+    - name: update-deployment
+      image: "openshift/origin-cli:4.14"
       script: |
-        #!/bin/bash
-        oc apply -f - <<EOF
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: widgety-deployment
-          namespace: widgety-pf-dev
-        spec:
-          replicas: 1
-          selector:
-            matchLabels:
-              app: widgety-pf
-          template:
-            metadata:
-              labels:
-                app: widgety-pf
-            spec:
-              containers:
-              - name: my-container
-                image: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
-               ports:
-                - containerPort: 8080
+        #!/bin/sh
+        set -e
+        oc project $(params.namespace)
+        oc set image deployment/$(params.deployment-name) *=$(params.image-url) --namespace=$(params.namespace)
+        oc rollout restart deployment/$(params.deployment-name)

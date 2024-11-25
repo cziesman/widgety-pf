@@ -63,12 +63,14 @@ spec:
         - maven-verify
     - name: deploy
       taskRef:
-        name: deploy-image
-      resources:
-        inputs:
-          - name: image
-            resourceRef:
-              name: quay-image
+        name: deploy-to-openshift
+      params:
+        - name: image-url
+          value: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
+        - name: deployment-name
+          value: 'widgety-pf'
+        - name: namespace
+          value: 'widgety-pf-dev'
       runAfter:
         - buildah-build-and-push
   workspaces:
