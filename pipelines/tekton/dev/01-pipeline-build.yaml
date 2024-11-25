@@ -61,6 +61,16 @@ spec:
       runAfter:
         - maven-extract-project-version
         - maven-verify
+    - name: deploy
+      taskRef:
+        name: deploy-image
+      resources:
+        inputs:
+          - name: image
+            resourceRef:
+              name: quay-image
+      runAfter:
+        - buildah-build-and-push
   workspaces:
     - name: workspace
     - name: maven-settings

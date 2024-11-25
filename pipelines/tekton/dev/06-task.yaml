@@ -1,0 +1,35 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy-image
+spec:
+  inputs:
+    resources:
+      - name: image
+        type: Image
+  steps:
+    - name: deploy
+      image: "openshift/origin-cli:latest"
+      script: |
+        #!/bin/bash
+        oc apply -f - <<EOF
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: widgety-deployment
+          namespace: widgety-pf-dev
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: widgety-pf
+          template:
+            metadata:
+              labels:
+                app: widgety-pf
+            spec:
+              containers:
+              - name: my-container
+                image: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
+               ports:
+                - containerPort: 8080
