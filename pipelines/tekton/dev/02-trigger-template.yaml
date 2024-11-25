@@ -1,0 +1,32 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: widgety-pf-build-trigger-template
+  labels:
+    app: widgety-pf
+spec:
+  params:
+    - name: git-repository-url
+      default: "https://github.com/cziesman/widgety-pf.git"
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1
+      kind: PipelineRun
+      metadata:
+        generateName: widgety-pf-build-pipeline-
+      spec:
+        pipelineRef:
+          name: widgety-pf-build-pipeline
+        params:
+          - name: git-repository-url
+            value: $(tt.params.git-repository-url)
+        workspaces:
+          - name: maven-settings
+            emptyDir: {}
+          - name: workspace
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 100Mi

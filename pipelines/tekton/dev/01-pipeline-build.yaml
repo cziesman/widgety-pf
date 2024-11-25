@@ -1,0 +1,65 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: widgety-pf-build-pipeline
+  labels:
+    app: widgety-pf
+spec:
+  params:
+    - name: git-repository-url
+  tasks:
+    - name: git-clone
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url
+          value: $(params.git-repository-url)
+      workspaces:
+        - name: output
+          workspace: workspace
+    - name: maven-verify
+      taskRef:
+        name: maven
+        kind: ClusterTask
+      params:
+        - name: MAVEN_IMAGE
+          value: 'registry.access.redhat.com/ubi8/openjdk-17:1.21-1'
+        - name: GOALS
+          value:
+            - '-B'
+            - '-ntp'
+            - verify
+      workspaces:
+        - name: source
+          workspace: workspace
+        - name: maven-settings
+          workspace: maven-settings
+      runAfter:
+        - git-clone
+    - name: maven-extract-project-version
+      taskRef:
+        name: maven-extract-project-version
+        kind: ClusterTask
+      workspaces:
+        - name: source
+          workspace: workspace
+      runAfter:
+        - git-clone
+    - name: buildah-bud-and-push
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+        - name: DOCKERFILE
+          value: 'src/main/docker/Dockerfile.jvm'
+        - name: IMAGE
+          value: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
+      workspaces:
+        - name: source
+          workspace: workspace
+      runAfter:
+        - maven-extract-project-version
+        - maven-verify  workspaces:
+    - name: workspace
+    - name: maven-settings
