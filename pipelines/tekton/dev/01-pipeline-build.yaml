@@ -46,7 +46,7 @@ spec:
           workspace: workspace
       runAfter:
         - git-clone
-    - name: buildah-bud-and-push
+    - name: buildah-build-and-push
       taskRef:
         name: buildah
         kind: ClusterTask
