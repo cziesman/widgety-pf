@@ -85,7 +85,7 @@ spec:
               protocol: TCP
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: File
-          image: 'image-registry.openshift-image-registry.svc:5000/demo-dev/widgety-pf@sha256:0968efd23f5b5b615cb096a210ccad817d79c946183248281466767fe8d8ab79'
+          image: 'image-registry.openshift-image-registry.svc:5000/widgety-pf-dev/widgety-pf'
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
