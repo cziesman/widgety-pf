@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: widgety-pf-dev
+  name: widgety-pf-qa
   namespace: argocd
 spec:
   destination:
