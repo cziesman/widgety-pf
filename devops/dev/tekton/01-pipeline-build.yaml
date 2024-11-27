@@ -39,7 +39,7 @@ spec:
         - git-clone
     - name: maven-extract-project-version
       taskRef:
-        name: maven-extract-project-version
+        name: maven-extract-project-version-dev
         kind: ClusterTask
       workspaces:
         - name: source
