@@ -17,6 +17,14 @@ Create the `widgety-pf-qa` namespace:
 ```
     oc apply -f devops/qa/00-namespace.yaml
 ```
+Create the resources in the `argocd` namespace for the ArgoCD application that builds the application in the `dev` namespace:
+```
+    oc apply -f devops/dev/tekton
+```
+Create the resources in the `argocd` namespace for the ArgoCD application that builds the application in the `qa` namespace:
+```
+    oc apply -f devops/qa/tekton
+```
 Create the ArgoCD application that manages `dev` deployments in the `argocd` namespace:
 ```
     oc apply -f devops/dev/argocd/01-application.yaml
@@ -27,11 +35,11 @@ Create the ArgoCD application that manages `qa` deployments in the `argocd` name
 ```
 Create the ArgoCD application that manages `dev` build pipelines in the `widgety-pipelines` namespace:
 ```
-    oc apply -f devops/dev/argocd/01-pipelines.yaml
+    oc apply -f devops/dev/argocd/02-pipeline.yaml
 ```
 Create the ArgoCD application that manages `qa` build pipelines in the `widgety-pipelines` namespace:
 ```
-    oc apply -f devops/qa/argocd/01-pipelines.yaml
+    oc apply -f devops/qa/argocd/02-pipeline.yaml
 ```
 
 # Operation
