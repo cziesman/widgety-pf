@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: widgety-pf
+  name: widgety-pf
+  namespace: widgety-pf-qa
+spec:
+  ports:
+    - name: widgety-pf-web
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: widgety-pf
+  sessionAffinity: None
+  type: ClusterIP
+  clusterIP: None

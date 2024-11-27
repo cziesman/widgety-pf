@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: widgety-pf
-  namespace: demo-dev
+  namespace: widgety-pf-qa
   labels:
     app: widgety-pf
 spec:

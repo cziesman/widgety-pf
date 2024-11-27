@@ -1,18 +1,17 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: widgety-pf-dev-build-event-listener
-  namespace: widgety-pipelines
-  labels:
-    app: widgety-pf
+  name: widget-pf
+  namespace: widgety-pf-qa
 spec:
+  host: widget-pf-widgety-pf-qa.apps.cluster-2v7hs.2v7hs.sandbox516.opentlc.com
   path: /
   to:
     kind: Service
-    name: el-widgety-pf-build-event-listener
+    name: widgety-pf
     weight: 100
   port:
-    targetPort: http-listener
+    targetPort: widgety-pf-web
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect

@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: widgety-pf-dev-build-event-listener
+  name: widgety-pf-qa-build-event-listener
   labels:
     app: widgety-pf
 spec:

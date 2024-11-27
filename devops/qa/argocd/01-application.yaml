@@ -9,7 +9,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    path: devops/dev/argocd
+    path: devops/qa/application
     repoURL: 'https://github.com/cziesman/widgety-pf.git'
     targetRevision: HEAD
   syncPolicy:
