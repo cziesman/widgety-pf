@@ -47,21 +47,21 @@ spec:
           workspace: workspace
       runAfter:
         - git-clone
-    - name: buildah-build-and-push
-      taskRef:
-        name: buildah
-        kind: ClusterTask
-      params:
-        - name: DOCKERFILE
-          value: 'Dockerfile'
-        - name: IMAGE
-          value: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
-      workspaces:
-        - name: source
-          workspace: workspace
-      runAfter:
-        - maven-extract-project-version
-        - maven-verify
+#    - name: buildah-build-and-push
+#      taskRef:
+#        name: buildah
+#        kind: ClusterTask
+#      params:
+#        - name: DOCKERFILE
+#          value: 'Dockerfile'
+#        - name: IMAGE
+#          value: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
+#      workspaces:
+#        - name: source
+#          workspace: workspace
+#      runAfter:
+#        - maven-extract-project-version
+#        - maven-verify
   workspaces:
     - name: workspace
     - name: maven-settings
