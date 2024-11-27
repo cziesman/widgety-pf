@@ -25,7 +25,7 @@ spec:
           - spring-boot
         from:
           kind: ImageStreamTag
-          namespace: demo-dev
+          namespace: widgety-pf-qa
           name: 'widgety-pf:latest'
   replicas: 1
   revisionHistoryLimit: 2
