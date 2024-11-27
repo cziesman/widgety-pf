@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: widgety-pf-qa-build-pipeline
+  namespace: widgety-pipelines
   labels:
     app: widgety-pf
 spec:
