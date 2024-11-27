@@ -11,11 +11,10 @@ spec:
     local: false
   tags:
     - name: latest
-      annotations: null
+      annotations: {}
       from:
         kind: DockerImage
         name: 'quay.io/cziesman/widgety-pf:2.0.0-SNAPSHOT'
-      generation: 1
       importPolicy:
         importMode: Legacy
       referencePolicy:

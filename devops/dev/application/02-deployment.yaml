@@ -16,17 +16,6 @@ spec:
       maxSurge: 25%
     resources: {}
     activeDeadlineSeconds: 21600
-  triggers:
-    - type: ConfigChange
-    - type: ImageChange
-      imageChangeParams:
-        automatic: true
-        containerNames:
-          - spring-boot
-        from:
-          kind: ImageStreamTag
-          namespace: widgety-pf-dev
-          name: 'widgety-pf:latest'
   replicas: 1
   revisionHistoryLimit: 2
   test: false
