@@ -7,7 +7,7 @@ metadata:
 spec:
   serviceAccountName: pipeline
   triggers:
-    - name: widgety-pf-build-trigger
+    - name: widgety-pf-qa-build-trigger
       bindings:
         - ref: github-push
           kind: ClusterTriggerBinding

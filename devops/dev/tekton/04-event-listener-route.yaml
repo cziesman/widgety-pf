@@ -9,7 +9,7 @@ spec:
   path: /
   to:
     kind: Service
-    name: el-widgety-pf-build-event-listener
+    name: el-widgety-pf-dev-build-event-listener
     weight: 100
   port:
     targetPort: http-listener

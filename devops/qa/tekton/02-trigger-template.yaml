@@ -12,7 +12,7 @@ spec:
     - apiVersion: tekton.dev/v1
       kind: PipelineRun
       metadata:
-        generateName: widgety-pf-build-pipeline-
+        generateName: widgety-pf-qa-build-pipeline-
       spec:
         pipelineRef:
           name: widgety-pf-build-pipeline
