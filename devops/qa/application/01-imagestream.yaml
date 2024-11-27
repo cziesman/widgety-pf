@@ -21,4 +21,4 @@ spec:
       referencePolicy:
         type: Source
 status:
-  dockerImageRepository: 'image-registry.openshift-image-registry.svc:5000/widgety-pf-dev/widgety-pf'
+  dockerImageRepository: 'image-registry.openshift-image-registry.svc:5000/widgety-pf-qa/widgety-pf'
