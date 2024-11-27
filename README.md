@@ -47,3 +47,4 @@ In order for Tekton to manage the new pipelines, we need to grant an extra permi
 ```
     oc policy add-role-to-user edit system:serviceaccount:widgety-pipelines:pipeline
 ```
+
