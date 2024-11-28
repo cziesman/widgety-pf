@@ -41,7 +41,7 @@ spec:
     - name: maven-extract-project-version
       taskRef:
         name: maven-extract-project-version-dev
-        kind: ClusterTask
+        kind: Task
       workspaces:
         - name: source
           workspace: workspace
