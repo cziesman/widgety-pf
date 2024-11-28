@@ -5,6 +5,10 @@ This repository provides a devops demo that uses Tekton and ArgoCD to build and 
 The setup includes separate namespaces for `dev`, `qa`, and `prod` environments in order to simulate a typical development, test, and deployment scenario.
 
 # Installation
+Install the Red Hat Openshift GitOps operator via the web console.
+
+Install the Red Hat Openshift Pipelines operator via the web console.
+
 Create the `widgety-pipelines` namespace: 
 ```
     oc apply -f devops/00-namespace.yaml

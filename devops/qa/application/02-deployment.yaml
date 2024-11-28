@@ -73,7 +73,7 @@ spec:
               protocol: TCP
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: File
-          image: 'image-registry.openshift-image-registry.svc:5000/widgety-pf-qa/widgety-pf'
+          image: 'quay.io/cziesman/widgety-pf:latest'
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
