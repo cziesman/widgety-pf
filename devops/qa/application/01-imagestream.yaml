@@ -14,11 +14,9 @@ spec:
       annotations: null
       from:
         kind: DockerImage
-        name: 'quay.io/cziesman/widgety-pf:2.0.0-SNAPSHOT'
+        name: 'quay.io/cziesman/widgety-pf:latest'
       generation: 2
       importPolicy:
         importMode: Legacy
       referencePolicy:
         type: Source
-status:
-  dockerImageRepository: 'image-registry.openshift-image-registry.svc:5000/widgety-pf-qa/widgety-pf'
