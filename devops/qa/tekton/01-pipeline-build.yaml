@@ -72,9 +72,6 @@ spec:
           value: widgety-pf
         - name: namespace
           value: widgety-pf-qa
-      workspaces:
-        - name: source
-          workspace: workspace
       runAfter:
         - buildah-build-and-push
   workspaces:
