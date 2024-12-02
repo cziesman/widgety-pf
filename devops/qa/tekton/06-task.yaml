@@ -28,6 +28,3 @@ spec:
         
         echo "Restarting deployment $(params.deployment-name)"
         oc rollout restart deployment/$(params.deployment-name)
-  workspaces:
-    - name: source
-      workspace: workspace
