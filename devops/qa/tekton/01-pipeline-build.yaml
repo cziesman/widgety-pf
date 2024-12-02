@@ -62,6 +62,21 @@ spec:
       runAfter:
         - maven-extract-project-version
         - maven-verify
+    - name: deploy-task
+      taskRef:
+        name: deploy-to-openshift
+      params:
+        - name: image-url
+          value: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
+        - name: deployment-name
+          value: widgety-pf
+        - name: namespace
+          value: widgety-pf-qa
+      workspaces:
+        - name: source
+          workspace: workspace
+      runAfter:
+        - buildah-build-and-push
   workspaces:
     - name: workspace
     - name: maven-settings
