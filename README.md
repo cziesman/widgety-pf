@@ -9,21 +9,9 @@ Install the Red Hat Openshift GitOps operator via the web console.
 
 Install the Red Hat Openshift Pipelines operator via the web console.
 
-Create the `widgety-pipelines` namespace:
+Create the `argocd`, `widgety-pipelines`, `widgety-pf-dev`, and `widgety-pf-qa` namespaces:
 ```
-    oc apply -f devops/00-namespace.yaml
-```
-Create the `argocd` namespace:
-```
-    oc apply -f devops/01-namespace.yaml
-```
-Create the `widgety-pf-dev` namespace:
-```
-    oc apply -f devops/dev/00-namespace.yaml
-```
-Create the `widgety-pf-qa` namespace:
-```
-    oc apply -f devops/qa/00-namespace.yaml
+    oc apply -f devops/namespace
 ```
 Create the resources in the `argocd` namespace for the ArgoCD application that builds the application in the `dev` namespace:
 ```
@@ -40,6 +28,14 @@ Create the ArgoCD application that manages `dev` build pipelines in the `widgety
 Create the ArgoCD application that manages `qa` build pipelines in the `widgety-pipelines` namespace:
 ```
     oc apply -f devops/qa/argocd/02-pipeline.yaml
+```
+Create the resources in the `widgety-pf-dev` namespace for the `widgety-pf` application:
+```
+    oc apply -f devops/dev/application
+```
+Create the resources in the `widgety-pf-qa` namespace for the `widgety-pf` application:
+```
+    oc apply -f devops/qa/application
 ```
 
 # Operation
