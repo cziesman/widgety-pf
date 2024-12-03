@@ -9,9 +9,13 @@ Install the Red Hat Openshift GitOps operator via the web console.
 
 Install the Red Hat Openshift Pipelines operator via the web console.
 
-Create the `widgety-pipelines` namespace: 
+Create the `widgety-pipelines` namespace:
 ```
     oc apply -f devops/00-namespace.yaml
+```
+Create the `argocd` namespace:
+```
+    oc apply -f devops/01-namespace.yaml
 ```
 Create the `widgety-pf-dev` namespace:
 ```
