@@ -29,14 +29,6 @@ Create the resources in the `argocd` namespace for the ArgoCD application that b
 ```
     oc apply -f devops/qa/tekton
 ```
-Create the ArgoCD application that manages `dev` deployments in the `argocd` namespace:
-```
-    oc apply -f devops/dev/argocd/01-application.yaml
-```
-Create the ArgoCD application that manages `qa` deployments in the `argocd` namespace:
-```
-    oc apply -f devops/qa/argocd/01-application.yaml
-```
 Create the ArgoCD application that manages `dev` build pipelines in the `widgety-pipelines` namespace:
 ```
     oc apply -f devops/dev/argocd/02-pipeline.yaml

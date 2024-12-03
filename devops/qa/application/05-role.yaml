@@ -1,0 +1,14 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pipeline-deploy
+  namespace: widgety-pf-qa
+rules:
+  - verbs:
+      - patch
+    apiGroups:
+      - apps
+      - ''
+    resources:
+      - deployments
+      - namespaces
