@@ -22,8 +22,8 @@ spec:
         # Extract the version using grep and sed
         VERSION=$(grep -m1 -oP '(?<=<version>)[^<]+' $(params.pom-path))
         echo "Project version: $VERSION"
-        # Write the version to the results file
-        echo -n "$VERSION" > $(results.version.path)
+        # Write the version to the results file as lowercase
+        echo -n "$VERSION"  | tr '[:upper:]' '[:lower:]' > $(results.version.path)
   workspaces:
     - description: Workspace containing the pom.xml file
       name: source
