@@ -55,7 +55,7 @@ spec:
         - name: DOCKERFILE
           value: 'Dockerfile'
         - name: IMAGE
-          value: 'image-registry.openshift-image-registry.svc:5000/widgety-pf-dev:$(tasks.maven-extract-project-version.results.version)'
+          value: 'quay.io/cziesman/widgety-pf-dev:$(tasks.maven-extract-project-version.results.version)'
       workspaces:
         - name: source
           workspace: workspace
