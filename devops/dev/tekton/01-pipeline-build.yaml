@@ -70,7 +70,7 @@ spec:
         - name: channel
           value: all-cetars-demo
         - name: message
-          value: "Pipeline <widgety-pf-dev-build> completed with status $(tasks.status)."
+          value: "Pipeline <widgety-pf-dev-build> completed with status <$(tasks.status)>."
       taskRef:
         name: send-to-channel-slack-dev
   workspaces:
