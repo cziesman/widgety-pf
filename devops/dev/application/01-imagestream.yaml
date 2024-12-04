@@ -14,7 +14,7 @@ spec:
       annotations: null
       from:
         kind: DockerImage
-        name: 'quay.io/cziesman/widgety-pf-dev:latest'
+        name: 'quay.io/cziesman/widgety-pf-dev:2.0.0-snapshot'
       importPolicy:
         importMode: Legacy
       referencePolicy:
