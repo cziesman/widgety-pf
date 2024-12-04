@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
-  name: widgety-pf-dev-build-pipeline
+  name: widgety-pf-dev-build
   namespace: widgety-pipelines
   labels:
     app: widgety-pf
@@ -62,6 +62,17 @@ spec:
       runAfter:
         - maven-extract-project-version
         - maven-verify
+  finally:
+    - name: send-status-to-slack
+      params:
+        - name: token-secret
+          value: slack-token
+        - name: channel
+          value: all-cetars-demo
+        - name: message
+          value: "Pipeline <widgety-pf-dev-build> completed with status $(status)."
+      taskRef:
+        name: send-to-channel-slack-dev
   workspaces:
     - name: workspace
     - name: maven-settings
