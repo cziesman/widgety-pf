@@ -25,6 +25,8 @@ spec:
     defaultPolicy: ''
     policy: |
       g, system:cluster-admins, role:admin
+      g, cluster-admins, role:admin
+      g, system:authenticated, role:admin
     scopes: '[groups]'
   redis:
     resources:
