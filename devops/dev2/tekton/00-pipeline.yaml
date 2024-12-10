@@ -1,0 +1,97 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: widget-app
+  namespace: widgety-pipelines
+  labels:
+    app.kubernetes.io/instance: widget-app
+    app.kubernetes.io/name: widget-app
+    operator.tekton.dev/operand-name: openshift-pipelines-addons
+    pipeline.openshift.io/runtime: java
+    pipeline.openshift.io/runtime-version: openjdk-17-ubi8
+    pipeline.openshift.io/type: kubernetes
+spec:
+  params:
+    - default: widget-app
+      name: APP_NAME
+      type: string
+    - default: 'https://github.com/cziesman/widget-app'
+      name: GIT_REPO
+      type: string
+    - default: ''
+      name: GIT_REVISION
+      type: string
+    - default: 'image-registry.openshift-image-registry.svc:5000/widget-app/widget-app'
+      name: IMAGE_NAME
+      type: string
+    - default: .
+      name: PATH_CONTEXT
+      type: string
+    - default: openjdk-17-ubi8
+      name: VERSION
+      type: string
+    - default: slack-token
+      name: SLACK_TOKEN_SECRET
+      type: string
+    - default: all-cetars-demo
+      name: SLACK_CHANNEL
+      type: string
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: $(params.GIT_REPO)
+        - name: revision
+          value: $(params.GIT_REVISION)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: workspace
+    - name: build
+      taskRef:
+        name: s2i-java
+        kind: ClusterTask
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE_NAME)
+        - name: TLSVERIFY
+          value: 'false'
+        - name: PATH_CONTEXT
+          value: $(params.PATH_CONTEXT)
+        - name: VERSION
+          value: $(params.VERSION)
+        - name: MAVEN_ARGS_APPEND
+          value: '-ntp verify'
+      runAfter:
+        - fetch-repository
+      workspaces:
+        - name: source
+          workspace: workspace
+    - name: deploy
+      params:
+        - name: SCRIPT
+          value: oc rollout status deploy/$(params.APP_NAME) -n widget-app
+      runAfter:
+        - build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+  finally:
+    - name: send-status-to-slack
+      params:
+        - name: token-secret
+          value: $(params.SLACK_TOKEN_SECRET)
+        - name: channel
+          value: $(params.SLACK_CHANNEL)
+        - name: message
+          value: "Pipeline <$(params.APP_NAME)> completed with status <$(tasks.status)>."
+      taskRef:
+        name: send-to-channel-slack-dev
+  workspaces:
+    - name: workspace

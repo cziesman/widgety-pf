@@ -1,0 +1,53 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: widget-app-trigger-template
+  namespace: widgety-pipelines
+  labels:
+    app: widget-app
+spec:
+  params:
+    - name: git-repository-url
+      default: "https://github.com/cziesman/widget-app.git"
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1
+      kind: PipelineRun
+      metadata:
+        generateName: widget-app-
+        labels:
+          app.kubernetes.io/instance: widget-app
+          app.kubernetes.io/name: widget-app
+          operator.tekton.dev/operand-name: openshift-pipelines-addons
+          pipeline.openshift.io/runtime: java
+          pipeline.openshift.io/runtime-version: openjdk-17-ubi8
+          pipeline.openshift.io/type: kubernetes
+          tekton.dev/pipeline: widget-app
+      spec:
+        params:
+          - name: APP_NAME
+            value: widget-app
+          - name: GIT_REPO
+            value: 'https://github.com/cziesman/widget-app'
+          - name: GIT_REVISION
+            value: ''
+          - name: IMAGE_NAME
+            value: 'image-registry.openshift-image-registry.svc:5000/widget-app/widget-app'
+          - name: PATH_CONTEXT
+            value: .
+          - name: VERSION
+            value: openjdk-17-ubi8
+        pipelineRef:
+          name: widget-app
+        status: null
+        workspaces:
+          - name: workspace
+            volumeClaimTemplate:
+              metadata:
+                labels:
+                  tekton.dev/pipeline: widget-app
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 1Gi

@@ -58,7 +58,7 @@ Use the web console to create a `Secret` using the YAML from Quay. Make sure to 
   kind: Secret
   metadata:
     name: cziesman-cetars-demo-pull-secret
-    namespace: widgety-pf-dev
+  namespace: widgety-pipelines
   data:
     .dockerconfigjson:
       <--- clipped --->

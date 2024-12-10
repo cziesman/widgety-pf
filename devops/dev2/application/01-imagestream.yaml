@@ -1,0 +1,19 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: ''
+    app.openshift.io/vcs-uri: 'https://github.com/cziesman/widget-app'
+  name: widget-app
+  namespace: widget-app
+  labels:
+    app: widget-app
+    app.kubernetes.io/component: widget-app
+    app.kubernetes.io/instance: widget-app
+    app.kubernetes.io/name: widget-app
+    app.kubernetes.io/part-of: widget-app
+    app.openshift.io/runtime: java
+    app.openshift.io/runtime-version: openjdk-17-ubi8
+spec:
+  lookupPolicy:
+    local: false

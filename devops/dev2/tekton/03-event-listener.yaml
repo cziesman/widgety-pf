@@ -1,0 +1,14 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: widget-app-event-listener
+  namespace: widgety-pipelines
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - name: widget-app-build-trigger
+      bindings:
+        - ref: github-push
+          kind: ClusterTriggerBinding
+      template:
+        ref: widget-app-trigger-template
