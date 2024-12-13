@@ -71,7 +71,7 @@ spec:
         - name: deployment-name
           value: widgety-pf
         - name: namespace
-          value: widgety-pf-prod
+          value: widgety-pf
       runAfter:
         - buildah-build-and-push
   finally:
