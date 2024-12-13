@@ -2,7 +2,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: widget-pf
-  namespace: widgety-pf-prod
+  namespace: widgety-pf
 spec:
   path: /
   to:

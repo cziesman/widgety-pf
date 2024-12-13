@@ -4,7 +4,7 @@ metadata:
   labels:
     app: widgety-pf
   name: widgety-pf
-  namespace: widgety-pf-prod
+  namespace: widgety-pf
 spec:
   ports:
     - name: widgety-pf-web

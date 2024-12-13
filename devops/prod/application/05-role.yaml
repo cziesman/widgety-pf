@@ -2,10 +2,10 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: pipeline-deploy
-  namespace: widgety-pf-prod
+  namespace: widgety-pf
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"Role","metadata":{"annotations":{},"name":"pipeline-deploy","namespace":"widgety-pf-prod"},"rules":[{"apiGroups":["apps",""],"resources":["deployments","namespaces"],"verbs":["patch"]}]}
+      {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"Role","metadata":{"annotations":{},"name":"pipeline-deploy","namespace":"widgety-pf"},"rules":[{"apiGroups":["apps",""],"resources":["deployments","namespaces"],"verbs":["patch"]}]}
 rules:
   - verbs:
       - create
