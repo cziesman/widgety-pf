@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: send-to-channel-slack
+  name: send-to-channel-slack-prod
   namespace: widgety-pipelines
 spec:
   params:

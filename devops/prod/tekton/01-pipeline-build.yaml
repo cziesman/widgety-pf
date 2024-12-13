@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
-  name: widgety-pf-qa-build
+  name: widgety-pf-prod-build
   namespace: widgety-pipelines
   labels:
     app: widgety-pf
@@ -40,7 +40,7 @@ spec:
         - git-clone
     - name: maven-extract-project-version
       taskRef:
-        name: maven-extract-project-version-qa
+        name: maven-extract-project-version-prod
         kind: Task
       workspaces:
         - name: source
@@ -55,7 +55,7 @@ spec:
         - name: DOCKERFILE
           value: 'Dockerfile'
         - name: IMAGE
-          value: 'quay.io/cziesman/widgety-pf-qa:$(tasks.maven-extract-project-version.results.version)'
+          value: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
       workspaces:
         - name: source
           workspace: workspace
@@ -67,11 +67,11 @@ spec:
         name: deploy-to-openshift
       params:
         - name: image-url
-          value: 'quay.io/cziesman/widgety-pf-qa:$(tasks.maven-extract-project-version.results.version)'
+          value: 'quay.io/cziesman/widgety-pf:$(tasks.maven-extract-project-version.results.version)'
         - name: deployment-name
           value: widgety-pf
         - name: namespace
-          value: widgety-pf-qa
+          value: widgety-pf-prod
       runAfter:
         - buildah-build-and-push
   finally:
@@ -82,9 +82,9 @@ spec:
         - name: channel
           value: all-cetars-demo
         - name: message
-          value: "Pipeline <widgety-pf-qa-build> completed with status <$(tasks.status)>."
+          value: "Pipeline <widgety-pf-prod-build> completed with status <$(tasks.status)>."
       taskRef:
-        name: send-to-channel-slack-qa
+        name: send-to-channel-slack-prod
   workspaces:
     - name: workspace
     - name: maven-settings

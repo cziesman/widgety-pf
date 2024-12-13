@@ -1,17 +1,15 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: widget-app-event-listener
+  name: widgety-pf-prod-build-event-listener
   namespace: widgety-pipelines
   labels:
-    app.kubernetes.io/managed-by: EventListener
-    app.kubernetes.io/part-of: Triggers
-    eventlistener: widget-app-event-listener
+    app: widgety-pf
 spec:
   path: /
   to:
     kind: Service
-    name: widget-app-event-listener
+    name: el-widgety-pf-prod-build-event-listener
     weight: 100
   port:
     targetPort: http-listener

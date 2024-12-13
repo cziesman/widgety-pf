@@ -2,7 +2,7 @@ kind: ImageStream
 apiVersion: image.openshift.io/v1
 metadata:
   name: widgety-pf
-  namespace: widgety-pf-qa
+  namespace: widgety-pf-prod
   labels:
     app: widgety-pf
     build: widgety-pf
@@ -14,7 +14,7 @@ spec:
       annotations: null
       from:
         kind: DockerImage
-        name: 'quay.io/cziesman/widgety-pf-qa:latest'
+        name: 'quay.io/cziesman/widgety-pf:latest'
       generation: 2
       importPolicy:
         importMode: Legacy

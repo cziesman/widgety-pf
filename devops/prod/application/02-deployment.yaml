@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: widgety-pf
-  namespace: widgety-pf-qa
+  namespace: widgety-pf-prod
   labels:
     app: widgety-pf
 spec:
@@ -73,7 +73,7 @@ spec:
               protocol: TCP
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: File
-          image: 'quay.io/cziesman/widgety-pf-qa:latest'
+          image: 'quay.io/cziesman/widgety-pf:latest'
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst

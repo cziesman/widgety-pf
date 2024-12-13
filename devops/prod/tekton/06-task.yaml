@@ -1,0 +1,30 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  namespace: widgety-pipelines
+  name: deploy-to-openshift
+spec:
+  params:
+    - name: image-url
+      description: The image URL from quay.io
+      type: string
+    - name: deployment-name
+      description: The name of the OpenShift Deployment or DeploymentConfig
+      type: string
+    - name: namespace
+      description: The namespace in which to deploy the application
+      type: string
+  steps:
+    - name: update-deployment
+      image: quay.io/openshift/origin-cli:4.14
+      script: |
+        #!/bin/sh
+        set -e
+        echo "Switching to namespace $(params.namespace)"
+        oc project $(params.namespace)
+        
+        echo "Updating deployment $(params.deployment-name) with image $(params.image-url)"
+        oc set image deployment/$(params.deployment-name) *=$(params.image-url) --namespace=$(params.namespace)
+        
+        echo "Restarting deployment $(params.deployment-name)"
+        oc rollout restart deployment/$(params.deployment-name)
