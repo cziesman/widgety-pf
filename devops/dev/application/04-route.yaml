@@ -4,7 +4,6 @@ metadata:
   name: widget-pf
   namespace: widgety-pf-dev
 spec:
-  host: widget-pf-widgety-pf-dev.apps.cluster-2v7hs.2v7hs.sandbox516.opentlc.com
   path: /
   to:
     kind: Service
