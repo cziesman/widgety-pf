@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
-  name: widgety-pf-dev-deploy
+  name: widgety-pf-dev-build
   namespace: widgety-pipelines
   labels:
     app: widgety-pf
@@ -16,6 +16,8 @@ spec:
       params:
         - name: url
           value: $(params.git-repository-url)
+        - name: revision
+          value: dev
       workspaces:
         - name: output
           workspace: workspace
@@ -47,21 +49,6 @@ spec:
           workspace: workspace
       runAfter:
         - git-clone
-    - name: buildah-build-and-push
-      taskRef:
-        name: buildah
-        kind: ClusterTask
-      params:
-        - name: DOCKERFILE
-          value: 'Dockerfile'
-        - name: IMAGE
-          value: 'quay.io/cziesman/widgety-pf-dev:$(tasks.maven-extract-project-version.results.version)'
-      workspaces:
-        - name: source
-          workspace: workspace
-      runAfter:
-        - maven-extract-project-version
-        - maven-verify
   finally:
     - name: send-status-to-slack
       params:
