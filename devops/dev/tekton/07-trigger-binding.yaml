@@ -17,5 +17,5 @@ spec:
       value: $(header.Content-Type)
     - name: pusher-name
       value: $(body.pusher.name)
-    - name: git-branch-name
-      value: $(extensions.branch)
+    - name: git-branch
+      value: $(body.ref)
