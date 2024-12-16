@@ -9,6 +9,8 @@ spec:
   params:
     - name: git-repository-url
       default: "https://github.com/cziesman/widgety-pf.git"
+    - name: git-branch
+      description: The branch ref from the GitHub webhook
   resourcetemplates:
     - apiVersion: tekton.dev/v1
       kind: PipelineRun
