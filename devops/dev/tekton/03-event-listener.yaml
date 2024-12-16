@@ -10,9 +10,17 @@ spec:
   triggers:
     - name: widgety-pf-dev-build-trigger
       bindings:
-        - ref: github-push
+        - ref: github-push-with-branch
           kind: ClusterTriggerBinding
       interceptors:
+        - params:
+            - name: overlays
+              value:
+                - expression: 'body.ref.split(''/'')[2]'
+                  key: branch
+          ref:
+            kind: ClusterInterceptor
+            name: cel
         - ref:
             name: "github"
           params:
