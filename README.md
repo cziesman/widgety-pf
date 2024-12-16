@@ -9,7 +9,7 @@ Install the Red Hat Openshift GitOps operator via the web console.
 
 Install the Red Hat Openshift Pipelines operator via the web console.
 
-Create the `argocd`, `widgety-pipelines`, `widgety-pf-dev`, and `widgety-pf-qa` namespaces:
+Create the `argocd`, `widgety-pipelines`, `widgety-pf-dev`, `widgety-pf-qa`, and `widgety-pf` namespaces:
 ```shell
 oc apply -f devops/namespace
 ```
@@ -25,6 +25,10 @@ Create the resources in the `widgety-pipelines` namespace for the Tekton pipelin
 ```shell
 oc apply -f devops/qa/tekton
 ```
+Create the resources in the `widgety-pipelines` namespace for the Tekton pipeline that builds the application in the `prod` namespace:
+```shell
+oc apply -f devops/prod/tekton
+```
 Create the ArgoCD application that manages `dev` build pipelines in the `widgety-pipelines` namespace:
 ```shell
 oc apply -f devops/argocd/01-pipeline.yaml
@@ -33,6 +37,10 @@ Create the ArgoCD application that manages `qa` build pipelines in the `widgety-
 ```shell
 oc apply -f devops/argocd/02-pipeline.yaml
 ```
+Create the ArgoCD application that manages `prod` build pipelines in the `widgety-pipelines` namespace:
+```shell
+oc apply -f devops/argocd/03-pipeline.yaml
+```
 Create the resources in the `widgety-pf-dev` namespace for the `widgety-pf` application:
 ```shell
 oc apply -f devops/dev/application
@@ -40,6 +48,10 @@ oc apply -f devops/dev/application
 Create the resources in the `widgety-pf-qa` namespace for the `widgety-pf` application:
 ```shell
 oc apply -f devops/qa/application
+```
+Create the resources in the `widgety-pf` namespace for the `widgety-pf` application:
+```shell
+oc apply -f devops/prod/application
 ```
 Get the Quay secret for the robot account:
 ```yaml
