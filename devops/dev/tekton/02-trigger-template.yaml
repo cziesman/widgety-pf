@@ -19,7 +19,9 @@ spec:
           name: widgety-pf-dev-build-pipeline
         params:
           - name: git-repository-url
-            value: $(tt.params.git-repository-url)
+            value: $(tt.params.git-repo-url)
+          - name: git-branch
+            value: $(tt.params.git-branch)
         workspaces:
           - name: maven-settings
             emptyDir: {}

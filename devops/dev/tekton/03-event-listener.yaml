@@ -14,12 +14,13 @@ spec:
           kind: ClusterTriggerBinding
       interceptors:
         - params:
+            - name: filter
+              value: "body.ref == 'refs/heads/dev'"
             - name: overlays
               value:
-                - expression: 'body.ref.split(''/'')[2]'
-                  key: branch
+                - key: "extensions.triggers.tekton.dev/precondition-failed"
+                  expression: "body.ref != 'refs/heads/dev'"
           ref:
-            kind: ClusterInterceptor
             name: cel
         - ref:
             name: "github"
