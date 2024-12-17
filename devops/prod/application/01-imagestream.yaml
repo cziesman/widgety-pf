@@ -15,7 +15,6 @@ spec:
       from:
         kind: DockerImage
         name: 'quay.io/cziesman/widgety-pf:latest'
-      generation: 2
       importPolicy:
         importMode: Legacy
       referencePolicy:

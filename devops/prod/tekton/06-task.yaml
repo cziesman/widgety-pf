@@ -1,8 +1,8 @@
 apiVersion: tekton.dev/v1
 kind: Task
 metadata:
-  namespace: widgety-pipelines
   name: deploy-to-openshift
+  namespace: tekton-pipelines
 spec:
   params:
     - name: image-url

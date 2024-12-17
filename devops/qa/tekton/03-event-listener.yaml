@@ -2,7 +2,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: widgety-pf-qa-build-event-listener
-  namespace: widgety-pipelines
+  namespace: tekton-pipelines
   labels:
     app: widgety-pf
 spec:
@@ -10,9 +10,14 @@ spec:
   triggers:
     - name: widgety-pf-qa-build-trigger
       bindings:
-        - ref: github-push
-          kind: ClusterTriggerBinding
+        - ref: github-push-with-branch
+          kind: TriggerBinding
       interceptors:
+        - params:
+            - name: 'filter'
+              value: "body.ref.contains('refs/heads/main')"
+          ref:
+            name: 'cel'
         - ref:
             name: "github"
           params:
@@ -23,4 +28,4 @@ spec:
             - name: "eventTypes"
               value: [ "push" ]
       template:
-        ref: widgety-pf-build-trigger-template
+        ref: widgety-pf-qa-build-trigger-template

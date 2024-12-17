@@ -2,13 +2,16 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: widgety-pf-prod-build-trigger-template
-  namespace: widgety-pipelines
+  namespace: tekton-pipelines
   labels:
     app: widgety-pf
 spec:
   params:
     - name: git-repository-url
+      description: The repository URL from the GitHub webhook
       default: "https://github.com/cziesman/widgety-pf.git"
+    - name: git-branch
+      description: The branch ref from the GitHub webhook
   resourcetemplates:
     - apiVersion: tekton.dev/v1
       kind: PipelineRun
@@ -16,10 +19,12 @@ spec:
         generateName: widgety-pf-prod-build-pipeline-
       spec:
         pipelineRef:
-          name: widgety-pf-build-pipeline
+          name: widgety-pf-prod-build-pipeline
         params:
           - name: git-repository-url
             value: $(tt.params.git-repository-url)
+          - name: git-branch
+            value: $(tt.params.git-branch)
         workspaces:
           - name: maven-settings
             emptyDir: {}

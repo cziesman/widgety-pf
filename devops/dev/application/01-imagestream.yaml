@@ -10,11 +10,11 @@ spec:
   lookupPolicy:
     local: false
   tags:
-    - name: 2.0.0-snapshot
+    - name: latest
       annotations: null
       from:
         kind: DockerImage
-        name: 'quay.io/cziesman/widgety-pf-dev:2.0.0-snapshot'
+        name: 'quay.io/cziesman/widgety-pf-dev:latest'
       importPolicy:
         importMode: Legacy
       referencePolicy:

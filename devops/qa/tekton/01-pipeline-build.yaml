@@ -1,8 +1,8 @@
 apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
-  name: widgety-pf-qa-build
-  namespace: widgety-pipelines
+  name: widgety-pf-qa-build-pipeline
+  namespace: tekton-pipelines
   labels:
     app: widgety-pf
 spec:
@@ -16,6 +16,8 @@ spec:
       params:
         - name: url
           value: $(params.git-repository-url)
+        - name: revision
+          value: main
       workspaces:
         - name: output
           workspace: workspace
@@ -40,7 +42,7 @@ spec:
         - git-clone
     - name: maven-extract-project-version
       taskRef:
-        name: maven-extract-project-version-qa
+        name: maven-extract-project-version
         kind: Task
       workspaces:
         - name: source
@@ -84,7 +86,7 @@ spec:
         - name: message
           value: "Pipeline <widgety-pf-qa-build> completed with status <$(tasks.status)>."
       taskRef:
-        name: send-to-channel-slack-qa
+        name: send-to-channel-slack
   workspaces:
     - name: workspace
     - name: maven-settings

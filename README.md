@@ -9,7 +9,7 @@ Install the Red Hat Openshift GitOps operator via the web console.
 
 Install the Red Hat Openshift Pipelines operator via the web console.
 
-Create the `argocd`, `widgety-pipelines`, `widgety-pf-dev`, `widgety-pf-qa`, and `widgety-pf` namespaces:
+Create the `argocd`, `tekton-pipelines`, `widgety-pf-dev`, `widgety-pf-qa`, and `widgety-pf` namespaces:
 ```shell
 oc apply -f devops/namespace
 ```
@@ -17,27 +17,27 @@ Create the ArgoCD instance in the `argocd` namespace:
 ```shell
 oc apply -f devops/argocd/00-argocd.yaml
 ```
-Create the resources in the `widgety-pipelines` namespace for the Tekton pipeline that builds the application in the `dev` namespace:
+Create the resources in the `tekton-pipelines` namespace for the Tekton pipeline that builds the application in the `dev` namespace:
 ```shell
 oc apply -f devops/dev/tekton
 ```
-Create the resources in the `widgety-pipelines` namespace for the Tekton pipeline that builds the application in the `qa` namespace:
+Create the resources in the `tekton-pipelines` namespace for the Tekton pipeline that builds the application in the `qa` namespace:
 ```shell
 oc apply -f devops/qa/tekton
 ```
-Create the resources in the `widgety-pipelines` namespace for the Tekton pipeline that builds the application in the `prod` namespace:
+Create the resources in the `tekton-pipelines` namespace for the Tekton pipeline that builds the application in the `prod` namespace:
 ```shell
 oc apply -f devops/prod/tekton
 ```
-Create the ArgoCD application that manages `dev` build pipelines in the `widgety-pipelines` namespace:
+Create the ArgoCD application that manages `dev` build pipelines in the `tekton-pipelines` namespace:
 ```shell
 oc apply -f devops/argocd/01-pipeline.yaml
 ```
-Create the ArgoCD application that manages `qa` build pipelines in the `widgety-pipelines` namespace:
+Create the ArgoCD application that manages `qa` build pipelines in the `tekton-pipelines` namespace:
 ```shell
 oc apply -f devops/argocd/02-pipeline.yaml
 ```
-Create the ArgoCD application that manages `prod` build pipelines in the `widgety-pipelines` namespace:
+Create the ArgoCD application that manages `prod` build pipelines in the `tekton-pipelines` namespace:
 ```shell
 oc apply -f devops/argocd/03-pipeline.yaml
 ```
@@ -64,13 +64,13 @@ data:
     <--- clipped --->
 type: kubernetes.io/dockerconfigjson
 ```
-Use the web console to create a `Secret` using the YAML from Quay. Make sure to include the `widgety-pipelines` namespace.
+Use the web console to create a `Secret` using the YAML from Quay. Make sure to include the `tekton-pipelines` namespace.
 ```yaml
   apiVersion: v1
   kind: Secret
   metadata:
     name: cziesman-cetars-demo-pull-secret
-  namespace: widgety-pipelines
+  namespace: tekton-pipelines
   data:
     .dockerconfigjson:
       <--- clipped --->
@@ -78,13 +78,24 @@ Use the web console to create a `Secret` using the YAML from Quay. Make sure to 
 ```
 Link the new secret to the `pipeline` service account:
 ```shell
-oc secrets link pipeline cziesman-cetars-demo-pull-secret --for=mount -n widgety-pipelines
+oc secrets link pipeline cziesman-cetars-demo-pull-secret --for=mount -n tekton-pipelines
 ```
 Grant an extra permission to the `pipeline` service account so that Tekton can manage the new pipelines:
 ```shell
-oc policy add-role-to-user edit system:serviceaccount:widgety-pipelines:pipeline
+oc policy add-role-to-user edit system:serviceaccount:tekton-pipelines:pipeline
 ```
-
+Create a secret containing the webhook token needed to authenticate the webhook call from Github:
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: widgety-pf-github-webhook-secret
+  namespace: tekton-pipelines
+data:
+  token: foobar
+type: Opaque
+```
+The token value is arbitrary, and just needs to match the webhook secret that is configured in Github.
 # Operation
 
 The build pipelines send their completion status to a Slack channel.
@@ -97,7 +108,7 @@ kind: Secret
 apiVersion: v1
 metadata:
   name: slack-token
-  namespace: widgety-pipelines
+  namespace: tekton-pipelines
 stringData:
   token: <--- clipped --->
 ```
