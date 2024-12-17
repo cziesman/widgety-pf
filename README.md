@@ -84,7 +84,18 @@ Grant an extra permission to the `pipeline` service account so that Tekton can m
 ```shell
 oc policy add-role-to-user edit system:serviceaccount:widgety-pipelines:pipeline
 ```
-
+Create a secret containing the webhook token needed to authenticate the webhook call from Github:
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: widgety-pf-github-webhook-secret
+  namespace: widgety-pipelines
+data:
+  token: foobar
+type: Opaque
+```
+The token value is arbitrary, and just needs to match the webhook secret that is configured in Github.
 # Operation
 
 The build pipelines send their completion status to a Slack channel.

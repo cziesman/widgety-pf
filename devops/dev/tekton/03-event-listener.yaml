@@ -5,8 +5,6 @@ metadata:
   namespace: widgety-pipelines
   labels:
     app: widgety-pf
-  annotations:
-    tekton.dev/payload-validation: "false"
 spec:
   serviceAccountName: pipeline
   triggers:
@@ -17,7 +15,7 @@ spec:
       interceptors:
         - params:
             - name: 'filter'
-              value: "body.ref == 'refs/heads/dev'"
+              value: "body.ref.contains('refs/heads/dev')"
           ref:
             name: 'cel'
         - ref:
@@ -30,4 +28,4 @@ spec:
             - name: "eventTypes"
               value: [ "push" ]
       template:
-        ref: widgety-pf-build-trigger-template
+        ref: widgety-pf-dev-build-trigger-template
