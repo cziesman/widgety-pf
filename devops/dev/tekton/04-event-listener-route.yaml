@@ -2,7 +2,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: widgety-pf-dev-build-event-listener
-  namespace: widgety-pipelines
+  namespace: tekton-pipelines
   labels:
     app: widgety-pf
 spec:

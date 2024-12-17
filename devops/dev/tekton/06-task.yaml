@@ -1,28 +1,30 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
-  name: send-to-channel-slack-dev
-  namespace: widgety-pipelines
+  name: deploy-to-openshift
+  namespace: tekton-pipelines
 spec:
   params:
-    - name: token-secret
+    - name: image-url
+      description: The image URL from quay.io
       type: string
-      description: secret name of the slack app access token (key is token)
-    - name: channel
+    - name: deployment-name
+      description: The name of the OpenShift Deployment or DeploymentConfig
       type: string
-      description: channel id or channel name
-    - name: message
+    - name: namespace
+      description: The namespace in which to deploy the application
       type: string
-      description: plain text message
   steps:
-    - name: post
-      image: docker.io/curlimages/curl:7.70.0@sha256:031df77a11e5edded840bc761a845eab6e3c2edee22669fb8ad6d59484b6a1c4
+    - name: update-deployment
+      image: quay.io/openshift/origin-cli:4.14
       script: |
         #!/bin/sh
-        /usr/bin/curl -X POST -H 'Content-type: application/json' -H 'Authorization: Bearer '$TOKEN --data '{"channel":"$(params.channel)", "text":"$(params.message)"}' https://slack.com/api/chat.postMessage
-      env:
-        - name: TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: $(params.token-secret)
-              key: token
+        set -e
+        echo "Switching to namespace $(params.namespace)"
+        oc project $(params.namespace)
+        
+        echo "Updating deployment $(params.deployment-name) with image $(params.image-url)"
+        oc set image deployment/$(params.deployment-name) *=$(params.image-url) --namespace=$(params.namespace)
+        
+        echo "Restarting deployment $(params.deployment-name)"
+        oc rollout restart deployment/$(params.deployment-name)

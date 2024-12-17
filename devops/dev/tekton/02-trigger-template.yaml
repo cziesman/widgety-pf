@@ -2,7 +2,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: widgety-pf-dev-build-trigger-template
-  namespace: widgety-pipelines
+  namespace: tekton-pipelines
   labels:
     app: widgety-pf
 spec:

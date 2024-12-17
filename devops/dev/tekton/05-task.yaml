@@ -1,8 +1,8 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: maven-extract-project-version-dev
-  namespace: widgety-pipelines
+  name: maven-extract-project-version
+  namespace: tekton-pipelines
 spec:
   params:
     - default: pom.xml
