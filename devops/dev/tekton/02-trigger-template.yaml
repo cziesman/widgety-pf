@@ -8,6 +8,7 @@ metadata:
 spec:
   params:
     - name: git-repository-url
+      description: The repository URL from the GitHub webhook
       default: "https://github.com/cziesman/widgety-pf.git"
     - name: git-branch
       description: The branch ref from the GitHub webhook
@@ -21,7 +22,7 @@ spec:
           name: widgety-pf-dev-build-pipeline
         params:
           - name: git-repository-url
-            value: $(tt.params.git-repo-url)
+            value: $(tt.params.git-repository-url)
           - name: git-branch
             value: $(tt.params.git-branch)
         workspaces:

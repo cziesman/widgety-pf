@@ -17,7 +17,7 @@ spec:
         - name: url
           value: $(params.git-repository-url)
         - name: revision
-          value: $(params.git-branch)
+          value: dev
       workspaces:
         - name: output
           workspace: workspace

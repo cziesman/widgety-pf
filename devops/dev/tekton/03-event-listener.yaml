@@ -14,14 +14,10 @@ spec:
           kind: TriggerBinding
       interceptors:
         - params:
-            - name: filter
+            - name: 'filter'
               value: "body.ref == 'refs/heads/dev'"
-            - name: overlays
-              value:
-                - key: "extensions.triggers.tekton.dev/precondition-failed"
-                  expression: "body.ref != 'refs/heads/dev'"
           ref:
-            name: cel
+            name: 'cel'
         - ref:
             name: "github"
           params:
