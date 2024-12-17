@@ -5,6 +5,8 @@ metadata:
   namespace: widgety-pipelines
   labels:
     app: widgety-pf
+  annotations:
+    tekton.dev/payload-validation: "false"
 spec:
   serviceAccountName: pipeline
   triggers:
