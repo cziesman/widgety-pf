@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: widgety-pf-prod-build-trigger-template
+  name: widgety-pf-prod-trigger-template
   namespace: tekton-pipelines
   labels:
     app: widgety-pf
@@ -16,10 +16,10 @@ spec:
     - apiVersion: tekton.dev/v1
       kind: PipelineRun
       metadata:
-        generateName: widgety-pf-prod-build-pipeline-
+        generateName: widgety-pf-prod-pipeline-
       spec:
         pipelineRef:
-          name: widgety-pf-prod-build-pipeline
+          name: widgety-pf-prod-pipeline
         params:
           - name: git-repository-url
             value: $(tt.params.git-repository-url)

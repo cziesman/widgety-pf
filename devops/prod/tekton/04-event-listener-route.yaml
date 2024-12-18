@@ -1,7 +1,7 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: widgety-pf-prod-build-event-listener
+  name: widgety-pf-prod-event-listener
   namespace: tekton-pipelines
   labels:
     app: widgety-pf
@@ -9,7 +9,7 @@ spec:
   path: /
   to:
     kind: Service
-    name: el-widgety-pf-prod-build-event-listener
+    name: el-widgety-pf-prod-event-listener
     weight: 100
   port:
     targetPort: http-listener

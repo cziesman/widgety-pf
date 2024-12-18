@@ -1,14 +1,14 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: widgety-pf-prod-build-event-listener
+  name: widgety-pf-prod-event-listener
   namespace: tekton-pipelines
   labels:
     app: widgety-pf
 spec:
   serviceAccountName: pipeline
   triggers:
-    - name: widgety-pf-prod-build-trigger
+    - name: widgety-pf-prod-trigger
       bindings:
         - ref: github-push-with-branch
           kind: TriggerBinding
@@ -28,4 +28,4 @@ spec:
             - name: "eventTypes"
               value: [ "push" ]
       template:
-        ref: widgety-pf-prod-build-trigger-template
+        ref: widgety-pf-prod-trigger-template
