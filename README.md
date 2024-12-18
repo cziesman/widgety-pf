@@ -7,7 +7,7 @@ The setup includes separate namespaces for `dev`, `qa`, and `prod` environments 
 # Installation
 Install the Red Hat Openshift GitOps operator via the web console.
 
-Install the Red Hat Openshift Pipelines operator via the web console.
+Install the Red Hat Openshift Pipelines operator v1.16.0 via the web console.
 
 Create the `argocd`, `tekton-pipelines`, `widgety-pf-dev`, `widgety-pf-qa`, and `widgety-pf` namespaces:
 ```shell

@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   annotations:
     operator.tekton.dev/prune.resources: "taskrun, pipelinerun"
-    operator.tekton.dev/prune.keep-since: 20
+    operator.tekton.dev/prune.keep-since: "20"
   labels:
     argocd.argoproj.io/managed-by: argocd
   name: tekton-pipelines
