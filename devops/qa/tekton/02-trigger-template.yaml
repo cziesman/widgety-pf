@@ -16,10 +16,10 @@ spec:
     - apiVersion: tekton.dev/v1
       kind: PipelineRun
       metadata:
-        generateName: widgety-pf-qa-pipeline-
+        generateName: widgety-pf-qa-
       spec:
         pipelineRef:
-          name: widgety-pf-qa-pipeline
+          name: widgety-pf-qa
         params:
           - name: git-repository-url
             value: $(tt.params.git-repository-url)
