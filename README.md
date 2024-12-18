@@ -112,4 +112,3 @@ metadata:
 stringData:
   token: <--- clipped --->
 ```
-
