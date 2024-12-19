@@ -91,7 +91,7 @@ apiVersion: v1
 metadata:
   name: widgety-pf-github-webhook-secret
   namespace: tekton-pipelines
-data:
+stringData:
   token: foobar
 type: Opaque
 ```
