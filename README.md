@@ -17,6 +17,10 @@ Create the ArgoCD instance in the `argocd` namespace:
 ```shell
 oc apply -f devops/argocd/00-argocd.yaml
 ```
+Create the common resources in the `tekton-pipelines` namespace for the Tekton pipelines that build the application in all namespace:
+```shell
+oc apply -f devops/common/tekton
+```
 Create the resources in the `tekton-pipelines` namespace for the Tekton pipeline that builds the application in the `dev` namespace:
 ```shell
 oc apply -f devops/dev/tekton
