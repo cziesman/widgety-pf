@@ -15,7 +15,7 @@ spec:
       interceptors:
         - params:
             - name: 'filter'
-              value: "body.ref.contains('refs/heads/main')"
+              value: "body.ref.contains('refs/tags')"
           ref:
             name: 'cel'
         - ref:
