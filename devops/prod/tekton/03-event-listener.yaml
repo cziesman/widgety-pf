@@ -12,10 +12,20 @@ spec:
       bindings:
         - ref: github-push-with-branch
           kind: TriggerBinding
+        - ref: github-tag
+          kind: TriggerBinding
       interceptors:
         - params:
             - name: 'filter'
               value: "body.ref.contains('refs/tags')"
+            - name: 'overlays'
+              value: |
+                [
+                  {
+                    "key": "extensions.tagSubstring",
+                    "expression": "body.ref.replaceAll('refs/tags/(.*)', '\\1')"
+                  }
+                ]
           ref:
             name: 'cel'
         - ref:

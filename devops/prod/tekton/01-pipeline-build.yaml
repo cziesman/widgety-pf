@@ -8,6 +8,7 @@ metadata:
 spec:
   params:
     - name: git-repository-url
+    - name: git-tag
   tasks:
     - name: git-clone
       taskRef:
@@ -21,6 +22,19 @@ spec:
       workspaces:
         - name: output
           workspace: workspace
+    - name: print-extracted
+      taskSpec:
+        params:
+          - name: git-tag
+            type: string
+        steps:
+          - name: echo-substring
+            image: alpine
+            script: |
+              #!/bin/sh
+              echo "Extracted substring: $(params.git-tag)"
+      runAfter:
+        - git-clone
     - name: maven-verify
       taskRef:
         name: maven

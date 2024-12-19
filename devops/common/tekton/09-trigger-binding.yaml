@@ -1,0 +1,9 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: github-tag
+  namespace: tekton-pipelines
+spec:
+  params:
+    - name: git-tag
+      value: $(extensions.tagSubstring)
