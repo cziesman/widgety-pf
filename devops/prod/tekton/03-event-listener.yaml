@@ -10,22 +10,16 @@ spec:
   triggers:
     - name: widgety-pf-prod-trigger
       bindings:
-        - ref: github-push-with-branch
-          kind: TriggerBinding
         - ref: github-tag
           kind: TriggerBinding
       interceptors:
         - params:
             - name: 'filter'
-              value: "body.ref.contains('refs/tags')"
+              value: "body.release.tag_name.startsWith('v')"
             - name: 'overlays'
-              value: |
-                [
-                  {
-                    "key": "extensions.tagSubstring",
-                    "expression": "body.ref.replaceAll('refs/tags/(.*)', '\\1')"
-                  }
-                ]
+              value:
+                - key: "release.tag"
+                  expression: "body.release.tag_name"
           ref:
             name: 'cel'
         - ref:

@@ -32,7 +32,7 @@ spec:
             image: alpine
             script: |
               #!/bin/sh
-              echo "Extracted substring: $(params.git-tag)"
+              echo "Tag: $(params.git-tag)"
       runAfter:
         - git-clone
     - name: maven-verify

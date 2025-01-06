@@ -6,4 +6,4 @@ metadata:
 spec:
   params:
     - name: git-tag
-      value: $(extensions.tagSubstring)
+      value: $(release.tag)
