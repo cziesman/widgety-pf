@@ -5,6 +5,9 @@ management:
       exposure:
         include: '*'
 
+server:
+  forward-headers-strategy: framework
+
 spring:
   application:
     name: widgety-pf

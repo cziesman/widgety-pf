@@ -31,17 +31,23 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(new AntPathRequestMatcher("/actuator/health"))
+                        .permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/login.faces"))
                         .permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**"))
                         .permitAll()
                         .anyRequest()
-                        .hasAnyRole("ADMIN", "USER"))
+                        .hasAnyRole("ADMIN", "USER"));
+        http
                 .formLogin((formLogin) -> formLogin.loginPage("/login.faces")
-                        .permitAll()
                         .failureUrl("/login.faces?error=true")
-                        .defaultSuccessUrl("/widgets.faces"))
-                .logout((logout) -> logout.logoutSuccessUrl("/login.faces").deleteCookies("JSESSIONID"));
+                        .defaultSuccessUrl("/widgets.faces")
+                        .permitAll());
+        http
+                .logout((logout) -> logout.logoutSuccessUrl("/login.faces")
+                        .deleteCookies("JSESSIONID"));
+
         return http.build();
     }
 
