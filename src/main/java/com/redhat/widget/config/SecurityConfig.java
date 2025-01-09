@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**"))
                         .permitAll()
                         .anyRequest()
-                        .authenticated())
+                        .hasAnyRole("ADMIN", "USER"))
                 .formLogin((formLogin) -> formLogin.loginPage("/login.faces")
                         .permitAll()
                         .failureUrl("/login.faces?error=true")
