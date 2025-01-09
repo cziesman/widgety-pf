@@ -35,12 +35,12 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/actuator/health"))
                         .permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/login.faces"))
-                        .permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**"))
+//                        .requestMatchers(new AntPathRequestMatcher("/login.faces"))
+//                        .permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/resources/**"))
                         .permitAll()
                         .anyRequest()
-                        .hasAnyRole("ADMIN", "USER"));
+                        .authenticated());
         http
                 .formLogin((formLogin) -> formLogin.loginPage("/login.faces")
                         .failureUrl("/login.faces?error=true")
