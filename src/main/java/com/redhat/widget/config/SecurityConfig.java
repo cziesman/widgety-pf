@@ -30,9 +30,8 @@ public class SecurityConfig {
         http.cors(AbstractHttpConfigurer::disable);
 
         http
-                .authorizeHttpRequests((authorize) -> authorize.requestMatchers(mvc.pattern("/"))
-                        .permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/**.faces"))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(new AntPathRequestMatcher("/login.faces"))
                         .permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**"))
                         .permitAll()
