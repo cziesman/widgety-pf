@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(new AntPathRequestMatcher("/favicon.ico"))
                         .permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/actuator/health"))
+                        .requestMatchers(new AntPathRequestMatcher("/actuator/health/**"))
                         .permitAll()
 //                        .requestMatchers(new AntPathRequestMatcher("/login.faces"))
 //                        .permitAll()
