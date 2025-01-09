@@ -13,7 +13,7 @@ public class DefaultWebController {
     })
     public String index() {
 
-        return "redirect:/widgets.faces";
-    }
+        return"redirect:/login.faces";
+}
 
 }

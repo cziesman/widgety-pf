@@ -1,0 +1,26 @@
+#mainLayoutPane {
+  background-color: #1f2d40;
+}
+
+#mainDiv {
+  background-color: #1f2d40;
+}
+
+.CodeMirror {
+  text-align: left;
+  height: auto !important;
+}
+
+.center {
+  text-align: center;
+}
+
+#centerBox {
+  position: absolute;
+  width: 500px;
+  height: 200px;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -150px;
+}

@@ -5,6 +5,9 @@ management:
       exposure:
         include: '*'
 
+server:
+  forward-headers-strategy: framework
+
 spring:
   application:
     name: widgety-pf
@@ -21,6 +24,24 @@ spring:
     open-in-view: true
   mvc:
     log-request-details: true
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          keycloak:
+#            client-id: spring-boot-app
+#            client-secret: spring-boot-app
+#            clientName: keycloak
+#            scope: openid, profile, email
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+#            authorization-grant-type: authorization_code
+#        provider:
+#          keycloak:
+#            authorization-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/auth
+#            token-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/token
+#            user-info-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/userinfo
+#            jwk-set-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/certs
+#            user-name-attribute: preferred_username
 
 springdoc:
   api-docs:
@@ -33,3 +54,12 @@ joinfaces:
 #    theme: arya
   jsf:
     webapp-resources-directory: /resources
+
+application-users:
+  users-credentials:
+    - username: jane
+      password: 123
+      authorities: ROLE_ADMIN
+    - username: joe
+      password: 456
+      authorities: ROLE_USER
