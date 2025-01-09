@@ -35,9 +35,9 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/actuator/health/**"))
                         .permitAll()
-//                        .requestMatchers(new AntPathRequestMatcher("/login.faces"))
-//                        .permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/resources/**"))
+                        .permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**"))
                         .permitAll()
                         .anyRequest()
                         .authenticated());
