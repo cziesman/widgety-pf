@@ -1,5 +1,7 @@
 package com.redhat.widget.rest;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode
-public class Widget {
+public class Widget implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

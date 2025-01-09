@@ -11,6 +11,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
+import lombok.Getter;
+import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +30,12 @@ public class WidgetView implements Serializable {
 
     private List<Widget> widgets;
 
+    @Setter
+    @Getter
     private Widget selectedWidget;
 
+    @Setter
+    @Getter
     private List<Widget> selectedWidgets;
 
     @PostConstruct
@@ -43,26 +49,6 @@ public class WidgetView implements Serializable {
     public Collection<Widget> getWidgets() {
 
         return widgets;
-    }
-
-    public Widget getSelectedWidget() {
-
-        return selectedWidget;
-    }
-
-    public void setSelectedWidget(Widget selectedWidget) {
-
-        this.selectedWidget = selectedWidget;
-    }
-
-    public List<Widget> getSelectedWidgets() {
-
-        return selectedWidgets;
-    }
-
-    public void setSelectedWidgets(List<Widget> selectedWidgets) {
-
-        this.selectedWidgets = selectedWidgets;
     }
 
     public void openNew() {

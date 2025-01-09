@@ -1,68 +1,77 @@
 package com.redhat.widget.config;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+@EnableConfigurationProperties(ApplicationUsers.class)
 public class SecurityConfig {
 
-    private static final String ADMIN = "ADMIN";
-
-    private static final String USER = "USER";
-
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
+
+        http.csrf(AbstractHttpConfigurer::disable);
+        http.cors(AbstractHttpConfigurer::disable);
 
         http
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers("/resources/**", "/css/**", "/js/**", "/img/**").permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/login**", "/logout**", "/static/favicon.ico").permitAll()
-                        .requestMatchers("/*").hasRole(USER)
-                        .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
-//                .formLogin(AbstractHttpConfigurer::disable)
-                .logout(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable);
-
+                .authorizeHttpRequests((authorize) -> authorize.requestMatchers(mvc.pattern("/"))
+                        .permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/**.faces"))
+                        .permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**"))
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .formLogin((formLogin) -> formLogin.loginPage("/login.faces")
+                        .permitAll()
+                        .failureUrl("/login.faces?error=true")
+                        .defaultSuccessUrl("/widgets.faces"))
+                .logout((logout) -> logout.logoutSuccessUrl("/login.faces").deleteCookies("JSESSIONID"));
         return http.build();
     }
 
+    @Scope("prototype")
     @Bean
-    public UserDetailsService userDetailsService() throws Exception {
+    MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
 
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User
-                .withUsername("thomas")
-                .password(encoder().encode("paine"))
-                .roles(ADMIN, USER).build());
-        manager.createUser(User
-                .withUsername("bill")
-                .password(encoder().encode("withers"))
-                .roles(USER).build());
-        return manager;
+        return new MvcRequestMatcher.Builder(introspector);
     }
 
+    /**
+     * UserDetailsService that configures an in-memory users store.
+     *
+     * @param applicationUsers - autowired users from the application.yml file
+     * @return a manager that keeps all the users' info in the memory
+     */
     @Bean
-    public PasswordEncoder encoder() {
+    public InMemoryUserDetailsManager userDetailsService(ApplicationUsers applicationUsers) {
 
-        return new BCryptPasswordEncoder();
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        InMemoryUserDetailsManager result = new InMemoryUserDetailsManager();
+        for (UserCredentials userCredentials : applicationUsers.getUsersCredentials()) {
+            result.createUser(User.builder()
+                    .username(userCredentials.getUsername())
+                    .password(encoder.encode(userCredentials.getPassword()))
+                    .authorities(userCredentials.getAuthorities().toArray(new String[0]))
+                    .build());
+        }
+        return result;
     }
 
 }

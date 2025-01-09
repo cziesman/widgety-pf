@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us"
+
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<f:view contentType="text/html">
+    <h:head>
+        <title>Login</title>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+        <h:outputStylesheet library="css" name="example.css" />
+        <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+    </h:head>
+
+    <h:body>
+        <h:form id="loginForm" prependId="false">
+            <p:panel header="Login"
+                     style="width: 350px; margin: 0 auto;">
+                <div class="centerBox">
+                    <p:panelGrid columns="1" layout="grid">
+                        <p:outputLabel value="Login failed: user and/or password are wrong."
+                                       rendered="${!empty param['error']}"/>
+                    </p:panelGrid>
+                    <p:focus />
+                    <div class="ui-fluid">
+                        <div class="field grid">
+                            <p:outputLabel for="username" value="Username"/>
+                            <p:inputText id="username"/>
+                        </div>
+                        <div class="field grid">
+                            <p:outputLabel for="password" value="Password"/>
+                            <p:password id="password"/>
+                        </div>
+                        <p:commandButton id="submit" value="Login" ajax="false" update="loginForm"/>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

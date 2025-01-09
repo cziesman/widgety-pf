@@ -15,13 +15,13 @@
     <logger name="org.springframework" level="info"/>
     <logger name="org.springframework.beans" level="info"/>
     <logger name="org.springframework.context" level="info"/>
-    <logger name="org.springframework.security" level="warn"/>
+    <logger name="org.springframework.security" level="debug"/>
     <logger name="org.springframework.data.repository.config" level="info"/>
     <logger name="org.springframework.boot.autoconfigure" level="warn"/>
     <logger name="org.springframework.boot.test.autoconfigure" level="warn"/>
     <logger name="org.springframework.boot.test.context" level="warn"/>
     <logger name="org.springframework.test.context" level="warn"/>
-<!--    <logger name="org.springframework.web" level="debug"/>-->
-<!--    <logger name="org.springframework.web.servlet" level="trace"/>-->
+    <logger name="org.springframework.web" level="debug"/>
+    <logger name="org.springframework.web.servlet" level="trace"/>
     <logger name="org.ocpsoft.rewrite" level="warn"/>
 </configuration>
