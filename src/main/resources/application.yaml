@@ -40,7 +40,7 @@ spring:
             client-id: spring-boot-app
             client-secret: 2RGIO3MX74a5hqD9Bya6SMWNtsZh6Ft6
 #            clientName: rhsso
-            scope: profile, email
+            scope: "profile,email"
 #            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
 ##            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
 #            authorization-grant-type: authorization_code

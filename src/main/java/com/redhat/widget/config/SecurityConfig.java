@@ -49,7 +49,8 @@ public class SecurityConfig {
 //                        .defaultSuccessUrl("/widgets.faces")
 //                        .permitAll());
         http
-                .logout((logout) -> logout.logoutSuccessUrl("/login.faces")
+                .logout((logout) -> logout
+//                        .logoutSuccessUrl("/login.faces")
                         .deleteCookies("JSESSIONID"));
 
         return http.build();
