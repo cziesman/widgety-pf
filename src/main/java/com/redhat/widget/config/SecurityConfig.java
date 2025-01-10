@@ -50,7 +50,7 @@ public class SecurityConfig {
 //                        .permitAll());
         http
                 .logout((logout) -> logout
-//                        .logoutSuccessUrl("/login.faces")
+                        .logoutSuccessUrl("/widgets.faces")
                         .deleteCookies("JSESSIONID"));
 
         return http.build();
