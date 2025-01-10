@@ -1,5 +1,13 @@
 
+# baseUrl: https://widget-pf-widgety-pf-dev.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com
+# registrationId: keycloak
+
 management:
+  endpoint:
+    configprops:
+      showValues: ALWAYS
+    env:
+      showValues: ALWAYS
   endpoints:
     web:
       exposure:
@@ -24,25 +32,26 @@ spring:
     open-in-view: true
   mvc:
     log-request-details: true
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          keycloak:
-#            client-id: spring-boot-app
-#            client-secret: spring-boot-app
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: spring-boot-app
+            client-secret: 2RGIO3MX74a5hqD9Bya6SMWNtsZh6Ft6
 #            clientName: keycloak
 #            scope: openid, profile, email
 #            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+##            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
 #            authorization-grant-type: authorization_code
-#        provider:
-#          keycloak:
+        provider:
+          keycloak:
+            issuer-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic
 #            authorization-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/auth
 #            token-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/token
 #            user-info-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/userinfo
 #            jwk-set-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/certs
-#            user-name-attribute: preferred_username
-
+#            user-name-attribute: username
 springdoc:
   api-docs:
     path: /api-docs
@@ -55,11 +64,11 @@ joinfaces:
   jsf:
     webapp-resources-directory: /resources
 
-application-users:
-  users-credentials:
-    - username: jane
-      password: 123
-      authorities: ROLE_ADMIN
-    - username: joe
-      password: 456
-      authorities: ROLE_USER
+#application-users:
+#  users-credentials:
+#    - username: jane
+#      password: 123
+#      authorities: ROLE_ADMIN
+#    - username: joe
+#      password: 456
+#      authorities: ROLE_USER
