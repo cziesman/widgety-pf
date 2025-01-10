@@ -36,16 +36,16 @@ spring:
     oauth2:
       client:
         registration:
-          keycloak:
+          rhsso:
             client-id: spring-boot-app
             client-secret: 2RGIO3MX74a5hqD9Bya6SMWNtsZh6Ft6
-#            clientName: keycloak
-            scope: openid, profile, email
+#            clientName: rhsso
+            scope: profile, email
 #            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
 ##            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
 #            authorization-grant-type: authorization_code
         provider:
-          keycloak:
+          rhsso:
             issuer-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic
 #            authorization-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/auth
 #            token-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/token
