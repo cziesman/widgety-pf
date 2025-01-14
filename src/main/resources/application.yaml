@@ -1,7 +1,4 @@
 
-# baseUrl: https://widget-pf-widgety-pf-dev.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com
-# registrationId: keycloak
-
 management:
   endpoint:
     configprops:
