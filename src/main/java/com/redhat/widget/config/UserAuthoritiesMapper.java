@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 public class UserAuthoritiesMapper {
 
     @Bean
-    public GrantedAuthoritiesMapper mapper() {
+    public GrantedAuthoritiesMapper map() {
 
         // this is a complete hack because I cannot figure out how to get keycloak to return the custom client roles.
         return (authorities) -> {
