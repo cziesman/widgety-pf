@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,8 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @Slf4j
 public class SecurityConfig {
 
+    @Autowired
+    private UserAuthoritiesMapper userAuthoritiesMapper;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
@@ -57,9 +60,8 @@ public class SecurityConfig {
                         .anyRequest()
                         .authenticated());
         http
-//                .oauth2Login(withDefaults());
                 .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(userAuthoritiesMapper())));
+                        .userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(userAuthoritiesMapper.mapper())));
         http
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
@@ -91,32 +93,7 @@ public class SecurityConfig {
         return new MvcRequestMatcher.Builder(introspector);
     }
 
-
-    private GrantedAuthoritiesMapper userAuthoritiesMapper() {
-
-        // this is a complete hack because I cannot figure out how to get keycloak to return the custom client roles.
-        return (authorities) -> {
-            Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
-
-            authorities.forEach(authority -> {
-                if (authority instanceof OidcUserAuthority oidcUserAuthority) {
-
-                    OidcIdToken idToken = oidcUserAuthority.getIdToken();
-
-                    if ("jane".equals(idToken.getPreferredUsername())) {
-                        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");
-                        mappedAuthorities.add(simpleGrantedAuthority);
-                    }
-                    SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
-                    mappedAuthorities.add(simpleGrantedAuthority);
-                }
-            });
-
-            return mappedAuthorities;
-        };
-    }
-
-//    /**
+    //    /**
 //     * UserDetailsService that configures an in-memory users store.
 //     *
 //     * @param applicationUsers - autowired users from the application.yml file
