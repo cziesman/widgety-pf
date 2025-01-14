@@ -47,10 +47,10 @@ spring:
         provider:
           keycloak:
             issuer-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic
-#            authorization-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/auth
-#            token-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/token
-#            user-info-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/userinfo
-#            jwk-set-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/certs
+            authorization-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/auth
+            token-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/token
+            user-info-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/userinfo
+            jwk-set-uri: https://keycloak-rhsso.apps.cluster-d29jc.d29jc.sandbox2608.opentlc.com/auth/realms/basic/protocol/openid-connect/certs
             user-name-attribute: preferred_username
 springdoc:
   api-docs:
